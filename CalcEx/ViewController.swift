@@ -40,20 +40,21 @@ class ViewController: UIViewController {
     
     }
     
+    private var brain = CalculatorBrain()
     
     @IBAction private func performOperation(_ sender: UIButton) {
         
-        userIsInMiddleOFTyping = false
-        if let methamaticalSymol = sender.currentTitle{
-            if methamaticalSymol == "∏"{
-                displayValue = M_PI
-            }else if methamaticalSymol == "√"{
-                
-                displayValue = sqrt(displayValue)
-            }
+        
+        if userIsInMiddleOFTyping{
+        brain.setOprand(operand: displayValue)
+            userIsInMiddleOFTyping = false
         }
         
+        if let methamaticalSymol = sender.currentTitle{
+            brain.perforOperation(symbol: methamaticalSymol)
+        }
         
+        displayValue = brain.result 
     }
     
 
